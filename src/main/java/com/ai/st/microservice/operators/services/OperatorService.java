@@ -1,5 +1,7 @@
 package com.ai.st.microservice.operators.services;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,21 @@ public class OperatorService implements IOperatorService {
 	@Transactional
 	public OperatorEntity createOperator(OperatorEntity opeatorEntity) {
 		return operatorRepository.save(opeatorEntity);
+	}
+
+	@Override
+	public List<OperatorEntity> getOperatorsByStateId(Long operatorStateId) {
+		return operatorRepository.getOperatorsByStateId(operatorStateId);
+	}
+
+	@Override
+	public OperatorEntity getOperatorById(Long id) {
+		return operatorRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public List<OperatorEntity> getAllOperators() {
+		return operatorRepository.findAll();
 	}
 
 }
