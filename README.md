@@ -8,9 +8,11 @@ Microservice for operator administration.
 $ mvn spring-boot:run
 ```
 
-## Configuration
+## Configuration 
 
-Modify the database connection in the st-microservice-operators/src/main/resources/**application.yml** file
+### Database connection
+
+You must create a database in PostgreSQL with a **scheme** called "**operators**" and then configure the connection data in the st-microservice-operators/src/main/resources/**application.yml** file
 
 ```yml
 spring:
@@ -46,6 +48,10 @@ spring:
     config:
       enabled: false
 ```
+
+## Swagger Documentation?
+
+See [http://localhost:5886/swagger-ui.html](http://localhost:5886/swagger-ui.html)
 
 ## Running Production
 
