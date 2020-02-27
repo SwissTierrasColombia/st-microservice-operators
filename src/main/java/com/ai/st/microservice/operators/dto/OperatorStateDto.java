@@ -5,7 +5,7 @@ import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "OperatorStateDto", description = "Operater State Dto")
+@ApiModel(value = "OperatorStateDto", description = "Operator State Dto")
 public class OperatorStateDto implements Serializable {
 
 	private static final long serialVersionUID = 844681853006719507L;
