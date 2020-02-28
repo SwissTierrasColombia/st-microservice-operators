@@ -41,6 +41,7 @@ public class DeliveryBusiness {
 		deliveryEntity.setMunicipalityCode(municipalityCode);
 		deliveryEntity.setObservations(observations);
 		deliveryEntity.setOperator(operatorEntity);
+		deliveryEntity.setIsActive(true);
 
 		List<SupplyDeliveredEntity> suppliesEntity = new ArrayList<SupplyDeliveredEntity>();
 		for (CreateDeliverySupplyDto supplyDto : supplies) {
@@ -61,6 +62,46 @@ public class DeliveryBusiness {
 		return deliveryDto;
 	}
 
+	public List<DeliveryDto> getDeliveriesByOperator(Long operatorId, String municipalityCode, Boolean isActive)
+			throws BusinessException {
+
+		List<DeliveryDto> deliveriesDto = new ArrayList<>();
+
+		OperatorEntity operatorEntity = operatorService.getOperatorById(operatorId);
+		if (!(operatorEntity instanceof OperatorEntity)) {
+			throw new BusinessException("El operador no existe.");
+		}
+
+		List<DeliveryEntity> deliveriesEntity = new ArrayList<>();
+
+		if (municipalityCode != null && !municipalityCode.isEmpty()) {
+
+			if (isActive == null) {
+				deliveriesEntity = deliveryService.getDeliveriesByOperatorAndMunicipality(operatorEntity,
+						municipalityCode);
+			} else {
+				deliveriesEntity = deliveryService.getDeliveriesByOperatorAndMunicipalityAndActive(operatorEntity,
+						municipalityCode, isActive);
+			}
+
+		} else {
+
+			if (isActive == null) {
+				deliveriesEntity = deliveryService.getDeliveriesByOperator(operatorEntity);
+			} else {
+				deliveriesEntity = deliveryService.getDeliveriesByOperatorAndActive(operatorEntity, isActive);
+			}
+
+		}
+
+		for (DeliveryEntity deliveryEntity : deliveriesEntity) {
+			DeliveryDto deliveryDto = this.transformEntityToDto(deliveryEntity);
+			deliveriesDto.add(deliveryDto);
+		}
+
+		return deliveriesDto;
+	}
+
 	private DeliveryDto transformEntityToDto(DeliveryEntity deliveryEntity) {
 
 		DeliveryDto deliveryDto = new DeliveryDto();
@@ -69,6 +110,7 @@ public class DeliveryBusiness {
 		deliveryDto.setManagerCode(deliveryEntity.getManagerCode());
 		deliveryDto.setMunicipalityCode(deliveryEntity.getMunicipalityCode());
 		deliveryDto.setObservations(deliveryEntity.getObservations());
+		deliveryDto.setIsActive(deliveryEntity.getIsActive());
 
 		OperatorEntity operatorEntity = deliveryEntity.getOperator();
 		OperatorDto operatorDto = new OperatorDto();

@@ -162,4 +162,33 @@ public class OperatorV1Controller {
 		return new ResponseEntity<>(responseDto, httpStatus);
 	}
 
+	@RequestMapping(value = "/{operatorId}/deliveries", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Get deliveries by operator")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Get deliveries", response = DeliveryDto.class, responseContainer = "List"),
+			@ApiResponse(code = 500, message = "Error Server", response = String.class) })
+	@ResponseBody
+	public ResponseEntity<?> getDeliveriesByOperator(@PathVariable Long operatorId,
+			@RequestParam(name = "municipality", required = false) String municipalityCode,
+			@RequestParam(name = "active", required = false) Boolean active) {
+
+		HttpStatus httpStatus = null;
+		Object responseDto = null;
+
+		try {
+
+			responseDto = deliveryBusiness.getDeliveriesByOperator(operatorId, municipalityCode, active);
+			httpStatus = HttpStatus.OK;
+
+		} catch (BusinessException e) {
+			log.error("Error OperatorV1Controller@getDeliveriesByOperator#Business ---> " + e.getMessage());
+			httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
+		} catch (Exception e) {
+			log.error("Error OperatorV1Controller@getDeliveriesByOperator#General ---> " + e.getMessage());
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<>(responseDto, httpStatus);
+	}
+
 }

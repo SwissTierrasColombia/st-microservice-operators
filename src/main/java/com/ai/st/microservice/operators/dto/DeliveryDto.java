@@ -25,6 +25,9 @@ public class DeliveryDto implements Serializable {
 	@ApiModelProperty(required = true, notes = "Municipality Code")
 	private String municipalityCode;
 
+	@ApiModelProperty(required = true, notes = "is active?")
+	private Boolean isActive;
+
 	@ApiModelProperty(required = true, notes = "Observations")
 	private String observations;
 
@@ -92,6 +95,14 @@ public class DeliveryDto implements Serializable {
 
 	public void setSupplies(List<SupplyDeliveryDto> supplies) {
 		this.supplies = supplies;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

@@ -37,6 +37,9 @@ public class DeliveryEntity {
 	@Column(name = "manager_code", nullable = false)
 	private Long managerCode;
 
+	@Column(name = "is_active", nullable = false)
+	private Boolean isActive;
+
 	@Column(name = "municipality_code", nullable = false, length = 10)
 	private String municipalityCode;
 
@@ -101,6 +104,14 @@ public class DeliveryEntity {
 
 	public void setSupplies(List<SupplyDeliveredEntity> supplies) {
 		this.supplies = supplies;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

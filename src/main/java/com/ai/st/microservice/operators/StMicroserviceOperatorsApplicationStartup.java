@@ -12,8 +12,10 @@ import org.springframework.stereotype.Component;
 import com.ai.st.microservice.operators.business.OperatorStateBusiness;
 import com.ai.st.microservice.operators.entities.OperatorEntity;
 import com.ai.st.microservice.operators.entities.OperatorStateEntity;
+import com.ai.st.microservice.operators.entities.OperatorUserEntity;
 import com.ai.st.microservice.operators.services.IOperatorService;
 import com.ai.st.microservice.operators.services.IOperatorStateService;
+import com.ai.st.microservice.operators.services.IOperatorUserService;
 
 @Component
 public class StMicroserviceOperatorsApplicationStartup implements ApplicationListener<ContextRefreshedEvent> {
@@ -25,6 +27,9 @@ public class StMicroserviceOperatorsApplicationStartup implements ApplicationLis
 
 	@Autowired
 	private IOperatorService operatorService;
+
+	@Autowired
+	private IOperatorUserService operatorUserService;
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -73,14 +78,18 @@ public class StMicroserviceOperatorsApplicationStartup implements ApplicationLis
 				operatorEntity.setCreatedAt(new Date());
 				operatorEntity.setIsPublic(false);
 				operatorEntity.setName("TOPOGRÁFICA DE COLOMBIA");
-				operatorEntity.setTaxIdentificationNumber("999-4");
+				operatorEntity.setTaxIdentificationNumber("999-5");
 				operatorEntity.setOperatorState(stateActive);
-
 				operatorService.createOperator(operatorEntity);
+
+				OperatorUserEntity operatorUser1 = new OperatorUserEntity();
+				operatorUser1.setCreatedAt(new Date());
+				operatorUser1.setUserCode((long) 8);
+				operatorUser1.setOperator(operatorEntity);
+				operatorUserService.createUserOperator(operatorUser1);
 
 				log.info("The domains 'operators' have been loaded!");
 			} catch (Exception e) {
-				System.out.println("eroij " + e.getMessage());
 				log.error("Failed to load 'operators' domains");
 			}
 

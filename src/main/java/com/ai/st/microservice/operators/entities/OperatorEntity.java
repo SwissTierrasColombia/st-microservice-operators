@@ -1,6 +1,8 @@
 package com.ai.st.microservice.operators.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,6 +42,9 @@ public class OperatorEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "operator_state_id", referencedColumnName = "id", nullable = false)
 	private OperatorStateEntity operatorState;
+
+	@OneToMany(mappedBy = "operator")
+	private List<OperatorUserEntity> users = new ArrayList<OperatorUserEntity>();
 
 	public OperatorEntity() {
 
@@ -90,6 +96,14 @@ public class OperatorEntity {
 
 	public void setOperatorState(OperatorStateEntity operatorState) {
 		this.operatorState = operatorState;
+	}
+
+	public List<OperatorUserEntity> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<OperatorUserEntity> users) {
+		this.users = users;
 	}
 
 }
