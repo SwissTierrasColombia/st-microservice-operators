@@ -1,5 +1,7 @@
 package com.ai.st.microservice.operators.services;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,11 @@ public class OperatorUserService implements IOperatorUserService {
 	@Transactional
 	public OperatorUserEntity createUserOperator(OperatorUserEntity operatorUser) {
 		return operatorUserRepository.save(operatorUser);
+	}
+
+	@Override
+	public List<OperatorUserEntity> getOperatorUsersByUserCode(Long userCode) {
+		return operatorUserRepository.findByUserCode(userCode);
 	}
 
 }
