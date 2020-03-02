@@ -3,6 +3,7 @@ package com.ai.st.microservice.operators.business;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -100,6 +101,40 @@ public class DeliveryBusiness {
 		}
 
 		return deliveriesDto;
+	}
+
+	public DeliveryDto updateSupplyDelivered(Long deliveryId, Long supplyId, String observations, Boolean downloaded)
+			throws BusinessException {
+
+		DeliveryEntity deliveryEntity = deliveryService.getDeliveryById(deliveryId);
+		if (!(deliveryEntity instanceof DeliveryEntity)) {
+			throw new BusinessException("La entrega no existe.");
+		}
+
+		SupplyDeliveredEntity supplyDeliveredEntity = deliveryEntity.getSupplies().stream()
+				.filter(supply -> supply.getId() == supplyId).findAny().orElse(null);
+		if (!(supplyDeliveredEntity instanceof SupplyDeliveredEntity)) {
+			throw new BusinessException("El insumo no existe.");
+		}
+
+		if (observations != null && !observations.isEmpty()) {
+			supplyDeliveredEntity.setObservations(observations);
+		}
+
+		if (downloaded != null) {
+			supplyDeliveredEntity.setDownloaded(downloaded);
+			supplyDeliveredEntity.setDownloadedAt(new Date());
+		}
+
+		List<SupplyDeliveredEntity> suppliesEntities = deliveryEntity.getSupplies().stream()
+				.filter(supply -> supply.getId() != supplyId).collect(Collectors.toList());
+		suppliesEntities.add(supplyDeliveredEntity);
+
+		deliveryEntity.setSupplies(suppliesEntities);
+
+		deliveryEntity = deliveryService.updateDelivery(deliveryEntity);
+
+		return this.transformEntityToDto(deliveryEntity);
 	}
 
 	private DeliveryDto transformEntityToDto(DeliveryEntity deliveryEntity) {

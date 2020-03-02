@@ -19,4 +19,8 @@ public interface IDeliveryService {
 	public List<DeliveryEntity> getDeliveriesByOperatorAndMunicipality(OperatorEntity operator,
 			String municipalityCode);
 
+	public DeliveryEntity getDeliveryById(Long deliveryId);
+
+	public DeliveryEntity updateDelivery(DeliveryEntity delivery);
+
 }

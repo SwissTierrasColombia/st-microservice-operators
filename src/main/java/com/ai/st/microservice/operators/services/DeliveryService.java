@@ -45,4 +45,15 @@ public class DeliveryService implements IDeliveryService {
 		return deliveryRepository.findByOperatorAndMunicipalityCode(operator, municipalityCode);
 	}
 
+	@Override
+	public DeliveryEntity getDeliveryById(Long deliveryId) {
+		return deliveryRepository.findById(deliveryId).orElse(null);
+	}
+
+	@Override
+	@Transactional
+	public DeliveryEntity updateDelivery(DeliveryEntity delivery) {
+		return deliveryRepository.save(delivery);
+	}
+
 }
