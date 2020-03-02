@@ -47,7 +47,7 @@ public class DeliveryV1Controller {
 
 		try {
 
-			deliveryBusiness.updateSupplyDelivered(deliveryId, supplyId, updateSupply.getObservations(),
+			responseDto = deliveryBusiness.updateSupplyDelivered(deliveryId, supplyId, updateSupply.getObservations(),
 					updateSupply.getDownloaded());
 			httpStatus = HttpStatus.OK;
 
@@ -58,6 +58,62 @@ public class DeliveryV1Controller {
 		} catch (Exception e) {
 			responseDto = new ErrorDto(e.getMessage(), 4);
 			log.error("Error DeliveryV1Controller@updateDeliveredSupply#General ---> " + e.getMessage());
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<>(responseDto, httpStatus);
+	}
+
+	@RequestMapping(value = "{deliveryId}/disable", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Disable delivery")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Delivery disabled", response = DeliveryDto.class),
+			@ApiResponse(code = 500, message = "Error Server", response = String.class) })
+	@ResponseBody
+	public ResponseEntity<?> disabledDelivery(@PathVariable Long deliveryId) {
+
+		HttpStatus httpStatus = null;
+		Object responseDto = null;
+
+		try {
+
+			responseDto = deliveryBusiness.disableDelivery(deliveryId);
+			httpStatus = HttpStatus.OK;
+
+		} catch (BusinessException e) {
+			responseDto = new ErrorDto(e.getMessage(), 3);
+			log.error("Error DeliveryV1Controller@disabledDelivery#Business ---> " + e.getMessage());
+			httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
+		} catch (Exception e) {
+			responseDto = new ErrorDto(e.getMessage(), 4);
+			log.error("Error DeliveryV1Controller@disabledDelivery#General ---> " + e.getMessage());
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<>(responseDto, httpStatus);
+	}
+
+	@RequestMapping(value = "{deliveryId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Get delivery by id")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Delivery obtained", response = DeliveryDto.class),
+			@ApiResponse(code = 500, message = "Error Server", response = String.class) })
+	@ResponseBody
+	public ResponseEntity<?> getDeliveryById(@PathVariable Long deliveryId) {
+
+		HttpStatus httpStatus = null;
+		Object responseDto = null;
+
+		try {
+
+			responseDto = deliveryBusiness.getDeliveryById(deliveryId);
+			httpStatus = HttpStatus.OK;
+
+		} catch (BusinessException e) {
+			responseDto = new ErrorDto(e.getMessage(), 3);
+			log.error("Error DeliveryV1Controller@getDeliveryById#Business ---> " + e.getMessage());
+			httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
+		} catch (Exception e) {
+			responseDto = new ErrorDto(e.getMessage(), 4);
+			log.error("Error DeliveryV1Controller@getDeliveryById#General ---> " + e.getMessage());
 			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 

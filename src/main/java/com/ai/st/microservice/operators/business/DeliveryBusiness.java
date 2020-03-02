@@ -137,6 +137,29 @@ public class DeliveryBusiness {
 		return this.transformEntityToDto(deliveryEntity);
 	}
 
+	public DeliveryDto disableDelivery(Long deliveryId) throws BusinessException {
+
+		DeliveryEntity deliveryEntity = deliveryService.getDeliveryById(deliveryId);
+		if (!(deliveryEntity instanceof DeliveryEntity)) {
+			throw new BusinessException("La entrega no existe.");
+		}
+
+		deliveryEntity.setIsActive(false);
+		deliveryEntity = deliveryService.updateDelivery(deliveryEntity);
+
+		return this.transformEntityToDto(deliveryEntity);
+	}
+
+	public DeliveryDto getDeliveryById(Long deliveryId) throws BusinessException {
+
+		DeliveryEntity deliveryEntity = deliveryService.getDeliveryById(deliveryId);
+		if (!(deliveryEntity instanceof DeliveryEntity)) {
+			throw new BusinessException("La entrega no existe.");
+		}
+
+		return this.transformEntityToDto(deliveryEntity);
+	}
+
 	private DeliveryDto transformEntityToDto(DeliveryEntity deliveryEntity) {
 
 		DeliveryDto deliveryDto = new DeliveryDto();
