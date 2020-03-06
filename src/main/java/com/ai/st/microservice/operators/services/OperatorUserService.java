@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ai.st.microservice.operators.entities.OperatorEntity;
 import com.ai.st.microservice.operators.entities.OperatorUserEntity;
 import com.ai.st.microservice.operators.repositories.OperatorUserRepository;
 
@@ -25,6 +26,11 @@ public class OperatorUserService implements IOperatorUserService {
 	@Override
 	public List<OperatorUserEntity> getOperatorUsersByUserCode(Long userCode) {
 		return operatorUserRepository.findByUserCode(userCode);
+	}
+
+	@Override
+	public OperatorUserEntity getOperatorUserByOperatorAndUserCode(OperatorEntity operator, Long userCode) {
+		return operatorUserRepository.findByOperatorAndUserCode(operator, userCode);
 	}
 
 }
