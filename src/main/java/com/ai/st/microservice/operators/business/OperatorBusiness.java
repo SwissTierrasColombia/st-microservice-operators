@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.ai.st.microservice.operators.dto.OperatorDto;
 import com.ai.st.microservice.operators.dto.OperatorStateDto;
+import com.ai.st.microservice.operators.dto.OperatorUserDto;
 import com.ai.st.microservice.operators.entities.OperatorEntity;
 import com.ai.st.microservice.operators.entities.OperatorUserEntity;
 import com.ai.st.microservice.operators.exceptions.BusinessException;
@@ -105,6 +106,24 @@ public class OperatorBusiness {
 				operatorEntity.getOperatorState().getName()));
 
 		return operatorDto;
+	}
+
+	public List<OperatorUserDto> getUsersByOperator(Long operatorId) throws BusinessException {
+
+		List<OperatorUserDto> users = new ArrayList<>();
+
+		// verify if the operator does exists
+		OperatorEntity operatorEntity = operatorService.getOperatorById(operatorId);
+		if (!(operatorEntity instanceof OperatorEntity)) {
+			throw new BusinessException("El operador no existe.");
+		}
+
+		List<OperatorUserEntity> usersEntity = operatorEntity.getUsers();
+		for (OperatorUserEntity userEntity : usersEntity) {
+			users.add(new OperatorUserDto(userEntity.getUserCode()));
+		}
+
+		return users;
 	}
 
 }

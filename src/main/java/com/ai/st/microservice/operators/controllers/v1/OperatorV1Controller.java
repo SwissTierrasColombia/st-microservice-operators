@@ -191,4 +191,31 @@ public class OperatorV1Controller {
 		return new ResponseEntity<>(responseDto, httpStatus);
 	}
 
+	@RequestMapping(value = "/{operatorId}/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Get users by operator")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Get users by operator", response = OperatorDto.class),
+			@ApiResponse(code = 404, message = "Operator not found", response = String.class),
+			@ApiResponse(code = 500, message = "Error Server", response = String.class) })
+	@ResponseBody
+	public ResponseEntity<?> getUsersByOpertor(@PathVariable Long operatorId) {
+
+		HttpStatus httpStatus = null;
+		Object operatorDto = null;
+
+		try {
+
+			operatorDto = operatorBusiness.getUsersByOperator(operatorId);
+			httpStatus = HttpStatus.OK;
+
+		} catch (BusinessException e) {
+			log.error("Error OperatorV1Controller@getUsersByOpertor#Business ---> " + e.getMessage());
+			httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
+		} catch (Exception e) {
+			log.error("Error OperatorV1Controller@getUsersByOpertor#General ---> " + e.getMessage());
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<>(operatorDto, httpStatus);
+	}
+
 }
