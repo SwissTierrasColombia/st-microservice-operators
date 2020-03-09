@@ -88,6 +88,46 @@ public class StMicroserviceOperatorsApplicationStartup implements ApplicationLis
 				operatorUser1.setOperator(operatorEntity);
 				operatorUserService.createUserOperator(operatorUser1);
 
+				OperatorEntity operator1Entity = new OperatorEntity();
+				operator1Entity.setCreatedAt(new Date());
+				operator1Entity.setIsPublic(false);
+				operator1Entity.setName("OPERADOR 1");
+				operator1Entity.setTaxIdentificationNumber("999-1");
+				operator1Entity.setOperatorState(stateActive);
+				operatorService.createOperator(operator1Entity);
+
+				OperatorEntity operator2Entity = new OperatorEntity();
+				operator2Entity.setCreatedAt(new Date());
+				operator2Entity.setIsPublic(false);
+				operator2Entity.setName("OPERADOR 2");
+				operator2Entity.setTaxIdentificationNumber("999-2");
+				operator2Entity.setOperatorState(stateActive);
+				operatorService.createOperator(operator2Entity);
+
+				OperatorEntity operator3Entity = new OperatorEntity();
+				operator3Entity.setCreatedAt(new Date());
+				operator3Entity.setIsPublic(false);
+				operator3Entity.setName("OPERADOR 3");
+				operator3Entity.setTaxIdentificationNumber("999-3");
+				operator3Entity.setOperatorState(stateActive);
+				operatorService.createOperator(operator3Entity);
+
+				OperatorEntity operator4Entity = new OperatorEntity();
+				operator4Entity.setCreatedAt(new Date());
+				operator4Entity.setIsPublic(false);
+				operator4Entity.setName("OPERADOR 4");
+				operator4Entity.setTaxIdentificationNumber("999-4");
+				operator4Entity.setOperatorState(stateActive);
+				operatorService.createOperator(operator4Entity);
+
+				OperatorEntity operator5Entity = new OperatorEntity();
+				operator5Entity.setCreatedAt(new Date());
+				operator5Entity.setIsPublic(false);
+				operator5Entity.setName("OPERADOR 5");
+				operator5Entity.setTaxIdentificationNumber("999-5");
+				operator5Entity.setOperatorState(stateActive);
+				operatorService.createOperator(operator5Entity);
+
 				log.info("The domains 'operators' have been loaded!");
 			} catch (Exception e) {
 				log.error("Failed to load 'operators' domains");
