@@ -112,7 +112,7 @@ public class DeliveryBusiness {
 		}
 
 		SupplyDeliveredEntity supplyDeliveredEntity = deliveryEntity.getSupplies().stream()
-				.filter(supply -> supply.getSupplyCode() == supplyId).findAny().orElse(null);
+				.filter(supply -> supply.getSupplyCode().equals(supplyId)).findAny().orElse(null);
 		if (!(supplyDeliveredEntity instanceof SupplyDeliveredEntity)) {
 			throw new BusinessException("El insumo no existe.");
 		}
@@ -127,7 +127,7 @@ public class DeliveryBusiness {
 		}
 
 		List<SupplyDeliveredEntity> suppliesEntities = deliveryEntity.getSupplies().stream()
-				.filter(supply -> supply.getId() != supplyId).collect(Collectors.toList());
+				.filter(supply -> !supply.getId().equals(supplyId)).collect(Collectors.toList());
 		suppliesEntities.add(supplyDeliveredEntity);
 
 		deliveryEntity.setSupplies(suppliesEntities);
