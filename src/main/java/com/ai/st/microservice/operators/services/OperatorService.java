@@ -42,4 +42,9 @@ public class OperatorService implements IOperatorService {
 		return operatorRepository.findAll();
 	}
 
+	@Override
+	public OperatorEntity updateManager(OperatorEntity operatorEntity) {
+		return operatorRepository.save(operatorEntity);
+	}
+
 }

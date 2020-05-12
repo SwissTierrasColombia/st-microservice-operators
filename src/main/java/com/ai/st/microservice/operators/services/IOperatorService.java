@@ -16,4 +16,6 @@ public interface IOperatorService {
 
 	public List<OperatorEntity> getAllOperators();
 
+	public OperatorEntity updateManager(OperatorEntity operatorEntity);
+
 }
