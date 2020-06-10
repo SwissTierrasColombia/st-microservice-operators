@@ -16,6 +16,12 @@ public class UpdateDeliveredSupplyDto implements Serializable {
 	@ApiModelProperty(required = true, notes = "Observations")
 	private String observations;
 
+	@ApiModelProperty(required = true, notes = "Report URL")
+	private String reportUrl;
+
+	@ApiModelProperty(required = true, notes = "Downloaded by")
+	private Long downloadedBy;
+
 	public UpdateDeliveredSupplyDto() {
 
 	}
@@ -34,6 +40,22 @@ public class UpdateDeliveredSupplyDto implements Serializable {
 
 	public void setObservations(String observations) {
 		this.observations = observations;
+	}
+
+	public String getReportUrl() {
+		return reportUrl;
+	}
+
+	public void setReportUrl(String reportUrl) {
+		this.reportUrl = reportUrl;
+	}
+
+	public Long getDownloadedBy() {
+		return downloadedBy;
+	}
+
+	public void setDownloadedBy(Long downloadedBy) {
+		this.downloadedBy = downloadedBy;
 	}
 
 }

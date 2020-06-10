@@ -103,8 +103,8 @@ public class DeliveryBusiness {
 		return deliveriesDto;
 	}
 
-	public DeliveryDto updateSupplyDelivered(Long deliveryId, Long supplyId, String observations, Boolean downloaded)
-			throws BusinessException {
+	public DeliveryDto updateSupplyDelivered(Long deliveryId, Long supplyId, String observations, Boolean downloaded,
+			Long downloadedBy, String reportUrl) throws BusinessException {
 
 		DeliveryEntity deliveryEntity = deliveryService.getDeliveryById(deliveryId);
 		if (!(deliveryEntity instanceof DeliveryEntity)) {
@@ -124,6 +124,11 @@ public class DeliveryBusiness {
 		if (downloaded != null) {
 			supplyDeliveredEntity.setDownloaded(downloaded);
 			supplyDeliveredEntity.setDownloadedAt(new Date());
+			supplyDeliveredEntity.setDownloadedBy(downloadedBy);
+		}
+
+		if (reportUrl != null) {
+			supplyDeliveredEntity.setDownloadReportUrl(reportUrl);
 		}
 
 		List<SupplyDeliveredEntity> suppliesEntities = deliveryEntity.getSupplies().stream()
@@ -150,6 +155,22 @@ public class DeliveryBusiness {
 		return this.transformEntityToDto(deliveryEntity);
 	}
 
+	public DeliveryDto updateDelivery(Long deliveryId, String urlReport) throws BusinessException {
+
+		DeliveryEntity deliveryEntity = deliveryService.getDeliveryById(deliveryId);
+		if (!(deliveryEntity instanceof DeliveryEntity)) {
+			throw new BusinessException("La entrega no existe.");
+		}
+
+		if (urlReport != null) {
+			deliveryEntity.setDownloadReportUrl(urlReport);
+		}
+
+		deliveryEntity = deliveryService.updateDelivery(deliveryEntity);
+
+		return this.transformEntityToDto(deliveryEntity);
+	}
+
 	public DeliveryDto getDeliveryById(Long deliveryId) throws BusinessException {
 
 		DeliveryEntity deliveryEntity = deliveryService.getDeliveryById(deliveryId);
@@ -169,6 +190,7 @@ public class DeliveryBusiness {
 		deliveryDto.setMunicipalityCode(deliveryEntity.getMunicipalityCode());
 		deliveryDto.setObservations(deliveryEntity.getObservations());
 		deliveryDto.setIsActive(deliveryEntity.getIsActive());
+		deliveryDto.setDownloadReportUrl(deliveryEntity.getDownloadReportUrl());
 
 		OperatorEntity operatorEntity = deliveryEntity.getOperator();
 		OperatorDto operatorDto = new OperatorDto();
@@ -188,6 +210,8 @@ public class DeliveryBusiness {
 			supplyDto.setDownloadedAt(supplyEntity.getDownloadedAt());
 			supplyDto.setObservations(supplyEntity.getObservations());
 			supplyDto.setSupplyCode(supplyEntity.getSupplyCode());
+			supplyDto.setDownloadedBy(supplyEntity.getDownloadedBy());
+			supplyDto.setDownloadReportUrl(supplyEntity.getDownloadReportUrl());
 
 			deliveryDto.getSupplies().add(supplyDto);
 		}

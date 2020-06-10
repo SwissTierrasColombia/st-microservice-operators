@@ -43,6 +43,9 @@ public class DeliveryEntity {
 	@Column(name = "municipality_code", nullable = false, length = 10)
 	private String municipalityCode;
 
+	@Column(name = "download_report_url", nullable = true, length = 1000)
+	private String downloadReportUrl;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "operator_id", referencedColumnName = "id", nullable = false)
 	private OperatorEntity operator;
@@ -112,6 +115,14 @@ public class DeliveryEntity {
 
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public String getDownloadReportUrl() {
+		return downloadReportUrl;
+	}
+
+	public void setDownloadReportUrl(String downloadReportUrl) {
+		this.downloadReportUrl = downloadReportUrl;
 	}
 
 }

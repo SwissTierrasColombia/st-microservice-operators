@@ -29,6 +29,12 @@ public class SupplyDeliveryDto implements Serializable {
 	@ApiModelProperty(required = true, notes = "Supply Code")
 	private Long supplyCode;
 
+	@ApiModelProperty(required = true, notes = "Downloaded by")
+	private Long downloadedBy;
+
+	@ApiModelProperty(required = true, notes = "URL Report")
+	private String downloadReportUrl;
+
 	public SupplyDeliveryDto() {
 
 	}
@@ -79,6 +85,22 @@ public class SupplyDeliveryDto implements Serializable {
 
 	public void setSupplyCode(Long supplyCode) {
 		this.supplyCode = supplyCode;
+	}
+
+	public Long getDownloadedBy() {
+		return downloadedBy;
+	}
+
+	public void setDownloadedBy(Long downloadedBy) {
+		this.downloadedBy = downloadedBy;
+	}
+
+	public String getDownloadReportUrl() {
+		return downloadReportUrl;
+	}
+
+	public void setDownloadReportUrl(String downloadReportUrl) {
+		this.downloadReportUrl = downloadReportUrl;
 	}
 
 }
