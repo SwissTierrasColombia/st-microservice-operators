@@ -36,6 +36,12 @@ public class SupplyDeliveredEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date downloadedAt;
 
+	@Column(name = "downloaded_by", nullable = true)
+	private Long downloadedBy;
+
+	@Column(name = "download_report_url", nullable = true, length = 1000)
+	private String downloadReportUrl;
+
 	@Column(name = "created_at", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
@@ -98,6 +104,22 @@ public class SupplyDeliveredEntity {
 
 	public void setDelivery(DeliveryEntity delivery) {
 		this.delivery = delivery;
+	}
+
+	public Long getDownloadedBy() {
+		return downloadedBy;
+	}
+
+	public void setDownloadedBy(Long downloadedBy) {
+		this.downloadedBy = downloadedBy;
+	}
+
+	public String getDownloadReportUrl() {
+		return downloadReportUrl;
+	}
+
+	public void setDownloadReportUrl(String downloadReportUrl) {
+		this.downloadReportUrl = downloadReportUrl;
 	}
 
 }

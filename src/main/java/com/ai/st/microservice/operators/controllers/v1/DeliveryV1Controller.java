@@ -17,6 +17,7 @@ import com.ai.st.microservice.operators.business.DeliveryBusiness;
 import com.ai.st.microservice.operators.dto.DeliveryDto;
 import com.ai.st.microservice.operators.dto.ErrorDto;
 import com.ai.st.microservice.operators.dto.UpdateDeliveredSupplyDto;
+import com.ai.st.microservice.operators.dto.UpdateDeliveryDto;
 import com.ai.st.microservice.operators.exceptions.BusinessException;
 
 import io.swagger.annotations.Api;
@@ -48,7 +49,7 @@ public class DeliveryV1Controller {
 		try {
 
 			responseDto = deliveryBusiness.updateSupplyDelivered(deliveryId, supplyId, updateSupply.getObservations(),
-					updateSupply.getDownloaded());
+					updateSupply.getDownloaded(), updateSupply.getDownloadedBy(), updateSupply.getReportUrl());
 			httpStatus = HttpStatus.OK;
 
 		} catch (BusinessException e) {
@@ -114,6 +115,35 @@ public class DeliveryV1Controller {
 		} catch (Exception e) {
 			responseDto = new ErrorDto(e.getMessage(), 4);
 			log.error("Error DeliveryV1Controller@getDeliveryById#General ---> " + e.getMessage());
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<>(responseDto, httpStatus);
+	}
+
+	@RequestMapping(value = "{deliveryId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Update delivered")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Delivery updated", response = DeliveryDto.class),
+			@ApiResponse(code = 500, message = "Error Server", response = String.class) })
+	@ResponseBody
+	public ResponseEntity<?> updateDelivery(@PathVariable Long deliveryId,
+			@RequestBody UpdateDeliveryDto updateDelivery) {
+
+		HttpStatus httpStatus = null;
+		Object responseDto = null;
+
+		try {
+
+			responseDto = deliveryBusiness.updateDelivery(deliveryId, updateDelivery.getReportUrl());
+			httpStatus = HttpStatus.OK;
+
+		} catch (BusinessException e) {
+			responseDto = new ErrorDto(e.getMessage(), 3);
+			log.error("Error DeliveryV1Controller@updateDelivery#Business ---> " + e.getMessage());
+			httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
+		} catch (Exception e) {
+			responseDto = new ErrorDto(e.getMessage(), 4);
+			log.error("Error DeliveryV1Controller@updateDelivery#General ---> " + e.getMessage());
 			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 

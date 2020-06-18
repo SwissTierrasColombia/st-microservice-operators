@@ -37,6 +37,9 @@ public class DeliveryDto implements Serializable {
 	@ApiModelProperty(required = true, notes = "Supplies")
 	private List<SupplyDeliveryDto> supplies;
 
+	@ApiModelProperty(required = true, notes = "Report url")
+	private String downloadReportUrl;
+
 	public DeliveryDto() {
 		this.supplies = new ArrayList<>();
 	}
@@ -103,6 +106,14 @@ public class DeliveryDto implements Serializable {
 
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public String getDownloadReportUrl() {
+		return downloadReportUrl;
+	}
+
+	public void setDownloadReportUrl(String downloadReportUrl) {
+		this.downloadReportUrl = downloadReportUrl;
 	}
 
 }
