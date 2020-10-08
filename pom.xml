@@ -14,7 +14,7 @@
 
 	<groupId>com.ai.st.microservice.operators</groupId>
 	<artifactId>st-microservice-operators</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.4.1</version>
 	<name>st-microservice-operators</name>
 	<description>Microservice Operators</description>
 
