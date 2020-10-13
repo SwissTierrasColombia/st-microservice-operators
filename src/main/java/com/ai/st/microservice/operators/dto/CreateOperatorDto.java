@@ -6,7 +6,7 @@ import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "CreateOperatorDto", description = "Create Operator Dto")
+@ApiModel(value = "CreateOperatorDto")
 public class CreateOperatorDto implements Serializable {
 
 	private static final long serialVersionUID = 4784320463657739097L;
@@ -16,6 +16,9 @@ public class CreateOperatorDto implements Serializable {
 
 	@ApiModelProperty(required = true, notes = "Operator tax identification number")
 	private String taxIdentificationNumber;
+
+	@ApiModelProperty(required = false, notes = "Operator alias")
+	private String alias;
 
 	@ApiModelProperty(required = true, notes = "Date creation")
 	private Date createdAt;
@@ -68,6 +71,14 @@ public class CreateOperatorDto implements Serializable {
 
 	public void setOperatorState(OperatorStateDto operatorState) {
 		this.operatorState = operatorState;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 }
