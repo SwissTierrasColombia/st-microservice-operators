@@ -18,4 +18,6 @@ public interface DeliveryRepository extends CrudRepository<DeliveryEntity, Long>
 
 	List<DeliveryEntity> findByOperatorAndMunicipalityCode(OperatorEntity operator, String municipalityCode);
 
+	List<DeliveryEntity> findByManagerCode(Long managerCode);
+
 }
