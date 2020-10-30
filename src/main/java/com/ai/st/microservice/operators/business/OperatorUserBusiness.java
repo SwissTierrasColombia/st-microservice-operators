@@ -30,7 +30,7 @@ public class OperatorUserBusiness {
 
 			operatorDto = new OperatorDto();
 			operatorDto.setId(operatorEntity.getId());
-			operatorDto.setAlias(operatorDto.getAlias());
+			operatorDto.setAlias(operatorEntity.getAlias());
 			operatorDto.setCreatedAt(operatorEntity.getCreatedAt());
 			operatorDto.setIsPublic(operatorEntity.getIsPublic());
 			operatorDto.setName(operatorEntity.getName());
