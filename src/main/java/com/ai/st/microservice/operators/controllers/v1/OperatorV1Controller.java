@@ -35,7 +35,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api(value = "Operators", description = "Operators", tags = { "Operators" })
+@Api(value = "Operators", tags = { "Operators" })
 @RestController
 @RequestMapping("api/operators/v1/operators")
 public class OperatorV1Controller {
@@ -252,7 +252,8 @@ public class OperatorV1Controller {
 				throw new InputValidationException("La bandera de público es requerida.");
 			}
 
-			responseDto = operatorBusiness.addOperator(operatorName, taxIdentification, isPublic);
+			responseDto = operatorBusiness.addOperator(operatorName, taxIdentification, isPublic,
+					requestCreateOperator.getAlias());
 			httpStatus = HttpStatus.CREATED;
 
 		} catch (InputValidationException e) {
@@ -358,8 +359,9 @@ public class OperatorV1Controller {
 				throw new InputValidationException("La bandera de público es requerida.");
 			}
 
-			responseDto = operatorBusiness.updateManager(operatorId, operatorName, taxIdentification, isPublic);
-			httpStatus = HttpStatus.CREATED;
+			responseDto = operatorBusiness.updateManager(operatorId, operatorName, taxIdentification, isPublic,
+					requestUpdateOperator.getAlias());
+			httpStatus = HttpStatus.OK;
 
 		} catch (InputValidationException e) {
 			log.error("Error OperatorV1Controller@updateManager#Validation ---> " + e.getMessage());

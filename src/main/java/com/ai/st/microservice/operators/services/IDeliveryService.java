@@ -23,4 +23,6 @@ public interface IDeliveryService {
 
 	public DeliveryEntity updateDelivery(DeliveryEntity delivery);
 
+	public List<DeliveryEntity> getDeliveriesByManager(Long managerCode);
+
 }

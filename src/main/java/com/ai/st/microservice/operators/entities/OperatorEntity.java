@@ -29,6 +29,9 @@ public class OperatorEntity {
 	@Column(name = "name", nullable = false, length = 255)
 	private String name;
 
+	@Column(name = "alias", nullable = true, length = 20)
+	private String alias;
+
 	@Column(name = "tax_identification_number", nullable = false, length = 255)
 	private String taxIdentificationNumber;
 
@@ -104,6 +107,14 @@ public class OperatorEntity {
 
 	public void setUsers(List<OperatorUserEntity> users) {
 		this.users = users;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 }

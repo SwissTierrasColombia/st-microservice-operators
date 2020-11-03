@@ -150,4 +150,33 @@ public class DeliveryV1Controller {
 		return new ResponseEntity<>(responseDto, httpStatus);
 	}
 
+	@RequestMapping(value = "/managers/{managerId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Get deliveries by manager")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Get deliveries by manager", response = DeliveryDto.class, responseContainer = "List"),
+			@ApiResponse(code = 500, message = "Error Server", response = String.class) })
+	@ResponseBody
+	public ResponseEntity<?> getDeliveriesByManager(@PathVariable Long managerId) {
+
+		HttpStatus httpStatus = null;
+		Object responseDto = null;
+
+		try {
+
+			responseDto = deliveryBusiness.getDeliveriesByManager(managerId);
+			httpStatus = HttpStatus.OK;
+
+		} catch (BusinessException e) {
+			responseDto = new ErrorDto(e.getMessage(), 3);
+			log.error("Error DeliveryV1Controller@getDeliveriesByManager#Business ---> " + e.getMessage());
+			httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
+		} catch (Exception e) {
+			responseDto = new ErrorDto(e.getMessage(), 4);
+			log.error("Error DeliveryV1Controller@getDeliveriesByManager#General ---> " + e.getMessage());
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<>(responseDto, httpStatus);
+	}
+
 }

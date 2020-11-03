@@ -181,6 +181,20 @@ public class DeliveryBusiness {
 		return this.transformEntityToDto(deliveryEntity);
 	}
 
+	public List<DeliveryDto> getDeliveriesByManager(Long managerCode) throws BusinessException {
+
+		List<DeliveryDto> deliveriesDto = new ArrayList<>();
+
+		List<DeliveryEntity> deliveriesEntity = deliveryService.getDeliveriesByManager(managerCode);
+
+		for (DeliveryEntity deliveryEntity : deliveriesEntity) {
+			DeliveryDto deliveryDto = this.transformEntityToDto(deliveryEntity);
+			deliveriesDto.add(deliveryDto);
+		}
+
+		return deliveriesDto;
+	}
+
 	private DeliveryDto transformEntityToDto(DeliveryEntity deliveryEntity) {
 
 		DeliveryDto deliveryDto = new DeliveryDto();
@@ -196,6 +210,7 @@ public class DeliveryBusiness {
 		OperatorDto operatorDto = new OperatorDto();
 		operatorDto.setId(operatorEntity.getId());
 		operatorDto.setIsPublic(operatorEntity.getIsPublic());
+		operatorDto.setAlias(operatorEntity.getAlias());
 		operatorDto.setCreatedAt(operatorEntity.getCreatedAt());
 		operatorDto.setName(operatorEntity.getName());
 		operatorDto.setTaxIdentificationNumber(operatorEntity.getTaxIdentificationNumber());
