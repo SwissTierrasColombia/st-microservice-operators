@@ -56,4 +56,9 @@ public class DeliveryService implements IDeliveryService {
 		return deliveryRepository.save(delivery);
 	}
 
+	@Override
+	public List<DeliveryEntity> getDeliveriesByManager(Long managerCode) {
+		return deliveryRepository.findByManagerCode(managerCode);
+	}
+
 }
