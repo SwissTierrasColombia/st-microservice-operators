@@ -18,4 +18,6 @@ public interface IOperatorService {
 
 	public OperatorEntity updateManager(OperatorEntity operatorEntity);
 
+	public OperatorEntity getOperatorByTaxIdentificationNumber(String tin);
+
 }

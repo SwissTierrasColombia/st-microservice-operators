@@ -16,4 +16,6 @@ public interface OperatorRepository extends CrudRepository<OperatorEntity, Long>
 	@Query("SELECT o FROM OperatorEntity o WHERE o.operatorState.id = :operatorStateId")
 	List<OperatorEntity> getOperatorsByStateId(@Param("operatorStateId") Long operatorStateId);
 
+	OperatorEntity findByTaxIdentificationNumber(String tin);
+
 }

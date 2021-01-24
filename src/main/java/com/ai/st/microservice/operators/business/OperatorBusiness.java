@@ -112,11 +112,16 @@ public class OperatorBusiness {
 			throws BusinessException {
 
 		if (operatorName.isEmpty()) {
-			throw new BusinessException("El operador debe contener un nombre.");
+			throw new BusinessException("El nombre del operador es requerido.");
 		}
 
 		if (taxIdentification.isEmpty()) {
-			throw new BusinessException("El operador debe contener un identificador de impuestos.");
+			throw new BusinessException("El NIT del operador es requerido.");
+		}
+
+		OperatorEntity operatorFound = operatorService.getOperatorByTaxIdentificationNumber(taxIdentification);
+		if (operatorFound != null) {
+			throw new BusinessException("Ya existe un operador registrado con el mismo NIT");
 		}
 
 		OperatorStateEntity operatorState = operatorStateService
