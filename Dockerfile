@@ -10,7 +10,7 @@ ENV CLOUD_CONFIG=$CLOUD_CONFIG
 
 VOLUME /tmp
 
-ADD ./target/st-microservice-operators-1.4.1.jar st-microservice-operators.jar
+ADD ./target/st-microservice-operators-1.5.4.jar st-microservice-operators.jar
 
 EXPOSE 8080
 

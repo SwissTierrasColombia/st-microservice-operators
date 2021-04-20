@@ -47,4 +47,9 @@ public class OperatorService implements IOperatorService {
 		return operatorRepository.save(operatorEntity);
 	}
 
+	@Override
+	public OperatorEntity getOperatorByTaxIdentificationNumber(String tin) {
+		return operatorRepository.findByTaxIdentificationNumber(tin);
+	}
+
 }
