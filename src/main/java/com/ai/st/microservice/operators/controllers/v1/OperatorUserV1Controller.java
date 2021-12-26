@@ -52,13 +52,13 @@ public class OperatorUserV1Controller {
 		try {
 
 			responseDto = operatorUserBusiness.getOperatorByUserCode(userCode);
-			httpStatus = (responseDto instanceof OperatorDto) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+			httpStatus = (responseDto != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 
 		} catch (BusinessException e) {
-			log.error("Error ManagerUserV1Controller@getManagersByUser#Business ---> " + e.getMessage());
+			log.error("Error OperatorUserV1Controller@getOperatorsByUser#Business ---> " + e.getMessage());
 			httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
 		} catch (Exception e) {
-			log.error("Error ManagerUserV1Controller@getManagersByUser#General ---> " + e.getMessage());
+			log.error("Error OperatorUserV1Controller@getOperatorsByUser#General ---> " + e.getMessage());
 			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 
