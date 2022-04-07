@@ -244,11 +244,7 @@ public class OperatorBusiness {
         operatorEntity.setTaxIdentificationNumber(taxIdentification);
         operatorEntity.setIsPublic(isPublic);
 
-        if (alias != null) {
-            operatorEntity.setAlias(alias);
-        } else {
-            operatorEntity.setAlias(null);
-        }
+        operatorEntity.setAlias(alias);
 
         try {
             OperatorEntity operatorUpdatedEntity = operatorService.updateOperator(operatorEntity);

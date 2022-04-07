@@ -60,4 +60,9 @@ public class CreateDeliveryDto implements Serializable {
         this.supplies = supplies;
     }
 
+    @Override
+    public String toString() {
+        return "CreateDeliveryDto{" + "managerCode=" + managerCode + ", municipalityCode='" + municipalityCode + '\''
+                + ", observations='" + observations + '\'' + ", supplies=" + supplies + '}';
+    }
 }

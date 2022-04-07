@@ -17,7 +17,7 @@ public class CreateOperatorDto implements Serializable {
     @ApiModelProperty(required = true, notes = "Operator tax identification number")
     private String taxIdentificationNumber;
 
-    @ApiModelProperty(required = false, notes = "Operator alias")
+    @ApiModelProperty(notes = "Operator alias")
     private String alias;
 
     @ApiModelProperty(required = true, notes = "Date creation")
@@ -81,4 +81,10 @@ public class CreateOperatorDto implements Serializable {
         this.alias = alias;
     }
 
+    @Override
+    public String toString() {
+        return "CreateOperatorDto{" + "name='" + name + '\'' + ", taxIdentificationNumber='" + taxIdentificationNumber
+                + '\'' + ", alias='" + alias + '\'' + ", createdAt=" + createdAt + ", isPublic=" + isPublic
+                + ", operatorState=" + operatorState + '}';
+    }
 }

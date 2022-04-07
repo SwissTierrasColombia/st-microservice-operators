@@ -19,7 +19,7 @@ public class UpdateOperatorDto implements Serializable {
     @ApiModelProperty(required = true, notes = "Operator tax identification number")
     private String taxIdentificationNumber;
 
-    @ApiModelProperty(required = false, notes = "Operator alias")
+    @ApiModelProperty(notes = "Operator alias")
     private String alias;
 
     @ApiModelProperty(required = true, notes = "Is public ?")
@@ -80,4 +80,10 @@ public class UpdateOperatorDto implements Serializable {
         this.alias = alias;
     }
 
+    @Override
+    public String toString() {
+        return "UpdateOperatorDto{" + "id=" + id + ", name='" + name + '\'' + ", taxIdentificationNumber='"
+                + taxIdentificationNumber + '\'' + ", alias='" + alias + '\'' + ", isPublic=" + isPublic
+                + ", operatorState=" + operatorState + '}';
+    }
 }
