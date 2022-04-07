@@ -16,8 +16,8 @@ import com.ai.st.microservice.operators.entities.DeliveryEntity;
 import com.ai.st.microservice.operators.entities.OperatorEntity;
 import com.ai.st.microservice.operators.entities.SupplyDeliveredEntity;
 import com.ai.st.microservice.operators.exceptions.BusinessException;
-import com.ai.st.microservice.operators.services.IDeliveryService;
-import com.ai.st.microservice.operators.services.IOperatorService;
+import com.ai.st.microservice.operators.models.services.IDeliveryService;
+import com.ai.st.microservice.operators.models.services.IOperatorService;
 
 @Component
 public class DeliveryBusiness {

@@ -1,4 +1,4 @@
-package com.ai.st.microservice.operators.services;
+package com.ai.st.microservice.operators.models.services;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ai.st.microservice.operators.entities.OperatorEntity;
-import com.ai.st.microservice.operators.repositories.OperatorRepository;
+import com.ai.st.microservice.operators.models.repositories.OperatorRepository;
 
 @Service
 public class OperatorService implements IOperatorService {

@@ -1,4 +1,4 @@
-package com.ai.st.microservice.operators.services;
+package com.ai.st.microservice.operators.models.services;
 
 import javax.transaction.Transactional;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ai.st.microservice.operators.entities.OperatorStateEntity;
-import com.ai.st.microservice.operators.repositories.OperatorStateRepository;
+import com.ai.st.microservice.operators.models.repositories.OperatorStateRepository;
 
 @Service
 public class OperatorStateService implements IOperatorStateService {

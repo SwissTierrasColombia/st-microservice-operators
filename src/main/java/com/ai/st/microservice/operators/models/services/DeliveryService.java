@@ -1,4 +1,4 @@
-package com.ai.st.microservice.operators.services;
+package com.ai.st.microservice.operators.models.services;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ai.st.microservice.operators.entities.DeliveryEntity;
 import com.ai.st.microservice.operators.entities.OperatorEntity;
-import com.ai.st.microservice.operators.repositories.DeliveryRepository;
+import com.ai.st.microservice.operators.models.repositories.DeliveryRepository;
 
 @Service
 public class DeliveryService implements IDeliveryService {

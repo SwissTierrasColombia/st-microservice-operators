@@ -10,7 +10,7 @@ import com.ai.st.microservice.operators.dto.OperatorStateDto;
 import com.ai.st.microservice.operators.entities.OperatorEntity;
 import com.ai.st.microservice.operators.entities.OperatorUserEntity;
 import com.ai.st.microservice.operators.exceptions.BusinessException;
-import com.ai.st.microservice.operators.services.IOperatorUserService;
+import com.ai.st.microservice.operators.models.services.IOperatorUserService;
 
 @Component
 public class OperatorUserBusiness {

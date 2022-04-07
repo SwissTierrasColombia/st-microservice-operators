@@ -17,9 +17,9 @@ import com.ai.st.microservice.operators.entities.OperatorEntity;
 import com.ai.st.microservice.operators.entities.OperatorStateEntity;
 import com.ai.st.microservice.operators.entities.OperatorUserEntity;
 import com.ai.st.microservice.operators.exceptions.BusinessException;
-import com.ai.st.microservice.operators.services.IOperatorService;
-import com.ai.st.microservice.operators.services.IOperatorStateService;
-import com.ai.st.microservice.operators.services.IOperatorUserService;
+import com.ai.st.microservice.operators.models.services.IOperatorService;
+import com.ai.st.microservice.operators.models.services.IOperatorStateService;
+import com.ai.st.microservice.operators.models.services.IOperatorUserService;
 
 @Component
 public class OperatorBusiness {

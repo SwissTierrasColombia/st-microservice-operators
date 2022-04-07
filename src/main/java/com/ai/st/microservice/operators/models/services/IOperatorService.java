@@ -1,4 +1,4 @@
-package com.ai.st.microservice.operators.services;
+package com.ai.st.microservice.operators.models.services;
 
 import java.util.List;
 
