@@ -4,10 +4,10 @@ import com.ai.st.microservice.operators.entities.OperatorStateEntity;
 
 public interface IOperatorStateService {
 
-	public Long getCount();
+    public Long getCount();
 
-	public OperatorStateEntity createOperatorState(OperatorStateEntity operatorStateEntity);
+    public OperatorStateEntity createOperatorState(OperatorStateEntity operatorStateEntity);
 
-	public OperatorStateEntity getOperatorById(Long id);
+    public OperatorStateEntity getOperatorById(Long id);
 
 }

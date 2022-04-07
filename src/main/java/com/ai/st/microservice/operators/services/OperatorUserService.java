@@ -14,23 +14,23 @@ import com.ai.st.microservice.operators.repositories.OperatorUserRepository;
 @Service
 public class OperatorUserService implements IOperatorUserService {
 
-	@Autowired
-	private OperatorUserRepository operatorUserRepository;
+    @Autowired
+    private OperatorUserRepository operatorUserRepository;
 
-	@Override
-	@Transactional
-	public OperatorUserEntity createUserOperator(OperatorUserEntity operatorUser) {
-		return operatorUserRepository.save(operatorUser);
-	}
+    @Override
+    @Transactional
+    public OperatorUserEntity createUserOperator(OperatorUserEntity operatorUser) {
+        return operatorUserRepository.save(operatorUser);
+    }
 
-	@Override
-	public List<OperatorUserEntity> getOperatorUsersByUserCode(Long userCode) {
-		return operatorUserRepository.findByUserCode(userCode);
-	}
+    @Override
+    public List<OperatorUserEntity> getOperatorUsersByUserCode(Long userCode) {
+        return operatorUserRepository.findByUserCode(userCode);
+    }
 
-	@Override
-	public OperatorUserEntity getOperatorUserByOperatorAndUserCode(OperatorEntity operator, Long userCode) {
-		return operatorUserRepository.findByOperatorAndUserCode(operator, userCode);
-	}
+    @Override
+    public OperatorUserEntity getOperatorUserByOperatorAndUserCode(OperatorEntity operator, Long userCode) {
+        return operatorUserRepository.findByOperatorAndUserCode(operator, userCode);
+    }
 
 }

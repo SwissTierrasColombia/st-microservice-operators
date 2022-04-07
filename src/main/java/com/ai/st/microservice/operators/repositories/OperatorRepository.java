@@ -10,12 +10,12 @@ import com.ai.st.microservice.operators.entities.OperatorEntity;
 
 public interface OperatorRepository extends CrudRepository<OperatorEntity, Long> {
 
-	@Override
-	List<OperatorEntity> findAll();
+    @Override
+    List<OperatorEntity> findAll();
 
-	@Query("SELECT o FROM OperatorEntity o WHERE o.operatorState.id = :operatorStateId")
-	List<OperatorEntity> getOperatorsByStateId(@Param("operatorStateId") Long operatorStateId);
+    @Query("SELECT o FROM OperatorEntity o WHERE o.operatorState.id = :operatorStateId")
+    List<OperatorEntity> getOperatorsByStateId(@Param("operatorStateId") Long operatorStateId);
 
-	OperatorEntity findByTaxIdentificationNumber(String tin);
+    OperatorEntity findByTaxIdentificationNumber(String tin);
 
 }

@@ -8,38 +8,38 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "OperatorStateDto", description = "Operator State Dto")
 public class OperatorStateDto implements Serializable {
 
-	private static final long serialVersionUID = 844681853006719507L;
+    private static final long serialVersionUID = 844681853006719507L;
 
-	@ApiModelProperty(required = true, notes = "State ID")
-	private Long id;
+    @ApiModelProperty(required = true, notes = "State ID")
+    private Long id;
 
-	@ApiModelProperty(required = true, notes = "State name")
-	private String name;
+    @ApiModelProperty(required = true, notes = "State name")
+    private String name;
 
-	public OperatorStateDto() {
+    public OperatorStateDto() {
 
-	}
+    }
 
-	public OperatorStateDto(Long id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
+    public OperatorStateDto(Long id, String name) {
+        super();
+        this.id = id;
+        this.name = name;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }

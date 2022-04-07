@@ -8,32 +8,32 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "AddUserToOperatorDto", description = "Add User To Operator Dto")
 public class AddUserToOperatorDto implements Serializable {
 
-	private static final long serialVersionUID = 3281389121792970476L;
+    private static final long serialVersionUID = 3281389121792970476L;
 
-	@ApiModelProperty(required = true, notes = "User code")
-	private Long userCode;
+    @ApiModelProperty(required = true, notes = "User code")
+    private Long userCode;
 
-	@ApiModelProperty(required = true, notes = "Operator ID")
-	private Long operatorId;
+    @ApiModelProperty(required = true, notes = "Operator ID")
+    private Long operatorId;
 
-	public AddUserToOperatorDto() {
+    public AddUserToOperatorDto() {
 
-	}
+    }
 
-	public Long getUserCode() {
-		return userCode;
-	}
+    public Long getUserCode() {
+        return userCode;
+    }
 
-	public void setUserCode(Long userCode) {
-		this.userCode = userCode;
-	}
+    public void setUserCode(Long userCode) {
+        this.userCode = userCode;
+    }
 
-	public Long getOperatorId() {
-		return operatorId;
-	}
+    public Long getOperatorId() {
+        return operatorId;
+    }
 
-	public void setOperatorId(Long operatorId) {
-		this.operatorId = operatorId;
-	}
+    public void setOperatorId(Long operatorId) {
+        this.operatorId = operatorId;
+    }
 
 }

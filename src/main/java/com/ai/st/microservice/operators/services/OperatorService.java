@@ -13,43 +13,43 @@ import com.ai.st.microservice.operators.repositories.OperatorRepository;
 @Service
 public class OperatorService implements IOperatorService {
 
-	@Autowired
-	private OperatorRepository operatorRepository;
+    @Autowired
+    private OperatorRepository operatorRepository;
 
-	@Override
-	public Long getCount() {
-		return operatorRepository.count();
-	}
+    @Override
+    public Long getCount() {
+        return operatorRepository.count();
+    }
 
-	@Override
-	@Transactional
-	public OperatorEntity createOperator(OperatorEntity opeatorEntity) {
-		return operatorRepository.save(opeatorEntity);
-	}
+    @Override
+    @Transactional
+    public OperatorEntity createOperator(OperatorEntity opeatorEntity) {
+        return operatorRepository.save(opeatorEntity);
+    }
 
-	@Override
-	public List<OperatorEntity> getOperatorsByStateId(Long operatorStateId) {
-		return operatorRepository.getOperatorsByStateId(operatorStateId);
-	}
+    @Override
+    public List<OperatorEntity> getOperatorsByStateId(Long operatorStateId) {
+        return operatorRepository.getOperatorsByStateId(operatorStateId);
+    }
 
-	@Override
-	public OperatorEntity getOperatorById(Long id) {
-		return operatorRepository.findById(id).orElse(null);
-	}
+    @Override
+    public OperatorEntity getOperatorById(Long id) {
+        return operatorRepository.findById(id).orElse(null);
+    }
 
-	@Override
-	public List<OperatorEntity> getAllOperators() {
-		return operatorRepository.findAll();
-	}
+    @Override
+    public List<OperatorEntity> getAllOperators() {
+        return operatorRepository.findAll();
+    }
 
-	@Override
-	public OperatorEntity updateManager(OperatorEntity operatorEntity) {
-		return operatorRepository.save(operatorEntity);
-	}
+    @Override
+    public OperatorEntity updateManager(OperatorEntity operatorEntity) {
+        return operatorRepository.save(operatorEntity);
+    }
 
-	@Override
-	public OperatorEntity getOperatorByTaxIdentificationNumber(String tin) {
-		return operatorRepository.findByTaxIdentificationNumber(tin);
-	}
+    @Override
+    public OperatorEntity getOperatorByTaxIdentificationNumber(String tin) {
+        return operatorRepository.findByTaxIdentificationNumber(tin);
+    }
 
 }

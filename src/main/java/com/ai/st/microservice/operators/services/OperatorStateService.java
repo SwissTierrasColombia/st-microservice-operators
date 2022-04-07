@@ -11,23 +11,23 @@ import com.ai.st.microservice.operators.repositories.OperatorStateRepository;
 @Service
 public class OperatorStateService implements IOperatorStateService {
 
-	@Autowired
-	private OperatorStateRepository operatorStateRepository;
+    @Autowired
+    private OperatorStateRepository operatorStateRepository;
 
-	@Override
-	public Long getCount() {
-		return operatorStateRepository.count();
-	}
+    @Override
+    public Long getCount() {
+        return operatorStateRepository.count();
+    }
 
-	@Override
-	@Transactional
-	public OperatorStateEntity createOperatorState(OperatorStateEntity operatorStateEntity) {
-		return operatorStateRepository.save(operatorStateEntity);
-	}
+    @Override
+    @Transactional
+    public OperatorStateEntity createOperatorState(OperatorStateEntity operatorStateEntity) {
+        return operatorStateRepository.save(operatorStateEntity);
+    }
 
-	@Override
-	public OperatorStateEntity getOperatorById(Long id) {
-		return operatorStateRepository.findById(id).orElse(null);
-	}
+    @Override
+    public OperatorStateEntity getOperatorById(Long id) {
+        return operatorStateRepository.findById(id).orElse(null);
+    }
 
 }

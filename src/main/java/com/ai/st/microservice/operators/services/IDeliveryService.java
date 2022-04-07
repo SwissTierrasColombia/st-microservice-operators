@@ -7,22 +7,22 @@ import com.ai.st.microservice.operators.entities.OperatorEntity;
 
 public interface IDeliveryService {
 
-	public DeliveryEntity createDelivery(DeliveryEntity delivery);
+    public DeliveryEntity createDelivery(DeliveryEntity delivery);
 
-	public List<DeliveryEntity> getDeliveriesByOperatorAndActive(OperatorEntity operator, Boolean isActive);
+    public List<DeliveryEntity> getDeliveriesByOperatorAndActive(OperatorEntity operator, Boolean isActive);
 
-	public List<DeliveryEntity> getDeliveriesByOperatorAndMunicipalityAndActive(OperatorEntity operator,
-			String municipalityCode, Boolean isActive);
+    public List<DeliveryEntity> getDeliveriesByOperatorAndMunicipalityAndActive(OperatorEntity operator,
+            String municipalityCode, Boolean isActive);
 
-	public List<DeliveryEntity> getDeliveriesByOperator(OperatorEntity operator);
+    public List<DeliveryEntity> getDeliveriesByOperator(OperatorEntity operator);
 
-	public List<DeliveryEntity> getDeliveriesByOperatorAndMunicipality(OperatorEntity operator,
-			String municipalityCode);
+    public List<DeliveryEntity> getDeliveriesByOperatorAndMunicipality(OperatorEntity operator,
+            String municipalityCode);
 
-	public DeliveryEntity getDeliveryById(Long deliveryId);
+    public DeliveryEntity getDeliveryById(Long deliveryId);
 
-	public DeliveryEntity updateDelivery(DeliveryEntity delivery);
+    public DeliveryEntity updateDelivery(DeliveryEntity delivery);
 
-	public List<DeliveryEntity> getDeliveriesByManager(Long managerCode);
+    public List<DeliveryEntity> getDeliveriesByManager(Long managerCode);
 
 }
