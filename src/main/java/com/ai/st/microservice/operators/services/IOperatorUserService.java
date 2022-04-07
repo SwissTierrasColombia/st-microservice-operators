@@ -7,10 +7,10 @@ import com.ai.st.microservice.operators.entities.OperatorUserEntity;
 
 public interface IOperatorUserService {
 
-    public OperatorUserEntity createUserOperator(OperatorUserEntity operatorUser);
+    OperatorUserEntity createUserOperator(OperatorUserEntity operatorUser);
 
-    public List<OperatorUserEntity> getOperatorUsersByUserCode(Long userCode);
+    List<OperatorUserEntity> getOperatorUsersByUserCode(Long userCode);
 
-    public OperatorUserEntity getOperatorUserByOperatorAndUserCode(OperatorEntity operator, Long userCode);
+    OperatorUserEntity getOperatorUserByOperatorAndUserCode(OperatorEntity operator, Long userCode);
 
 }

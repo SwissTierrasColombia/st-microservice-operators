@@ -6,18 +6,18 @@ import com.ai.st.microservice.operators.entities.OperatorEntity;
 
 public interface IOperatorService {
 
-    public Long getCount();
+    Long getCount();
 
-    public OperatorEntity createOperator(OperatorEntity opeatorEntity);
+    OperatorEntity createOperator(OperatorEntity opeatorEntity);
 
-    public List<OperatorEntity> getOperatorsByStateId(Long operatorStateId);
+    List<OperatorEntity> getOperatorsByStateId(Long operatorStateId);
 
-    public OperatorEntity getOperatorById(Long id);
+    OperatorEntity getOperatorById(Long id);
 
-    public List<OperatorEntity> getAllOperators();
+    List<OperatorEntity> getAllOperators();
 
-    public OperatorEntity updateManager(OperatorEntity operatorEntity);
+    OperatorEntity updateOperator(OperatorEntity operatorEntity);
 
-    public OperatorEntity getOperatorByTaxIdentificationNumber(String tin);
+    OperatorEntity getOperatorByTaxIdentificationNumber(String tin);
 
 }

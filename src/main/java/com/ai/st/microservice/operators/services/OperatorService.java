@@ -43,7 +43,7 @@ public class OperatorService implements IOperatorService {
     }
 
     @Override
-    public OperatorEntity updateManager(OperatorEntity operatorEntity) {
+    public OperatorEntity updateOperator(OperatorEntity operatorEntity) {
         return operatorRepository.save(operatorEntity);
     }
 

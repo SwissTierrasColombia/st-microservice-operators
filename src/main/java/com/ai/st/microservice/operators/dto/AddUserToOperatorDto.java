@@ -36,4 +36,8 @@ public class AddUserToOperatorDto implements Serializable {
         this.operatorId = operatorId;
     }
 
+    @Override
+    public String toString() {
+        return "AddUserToOperatorDto{" + "userCode=" + userCode + ", operatorId=" + operatorId + '}';
+    }
 }

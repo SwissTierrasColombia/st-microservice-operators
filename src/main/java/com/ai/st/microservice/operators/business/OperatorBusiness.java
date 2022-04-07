@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.ai.st.microservice.operators.services.tracing.SCMTracing;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +24,8 @@ import com.ai.st.microservice.operators.services.IOperatorUserService;
 @Component
 public class OperatorBusiness {
 
+    private final Logger log = LoggerFactory.getLogger(OperatorBusiness.class);
+
     @Autowired
     private IOperatorService operatorService;
 
@@ -32,9 +37,9 @@ public class OperatorBusiness {
 
     public List<OperatorDto> getOperators(Long operatorStateId) throws BusinessException {
 
-        List<OperatorDto> listOperatorsDto = new ArrayList<OperatorDto>();
+        List<OperatorDto> listOperatorsDto = new ArrayList<>();
 
-        List<OperatorEntity> listOperatorEntity = new ArrayList<OperatorEntity>();
+        List<OperatorEntity> listOperatorEntity;
 
         if (operatorStateId != null) {
             listOperatorEntity = operatorService.getOperatorsByStateId(operatorStateId);
@@ -55,7 +60,7 @@ public class OperatorBusiness {
         OperatorDto operatorDto = null;
 
         OperatorEntity operatorEntity = operatorService.getOperatorById(operatorId);
-        if (operatorEntity instanceof OperatorEntity) {
+        if (operatorEntity != null) {
             operatorDto = transformEntityToDto(operatorEntity);
         }
 
@@ -64,15 +69,15 @@ public class OperatorBusiness {
 
     public OperatorDto addUserToOperator(Long userCode, Long operatorId) throws BusinessException {
 
-        // verify if the operator does exists
+        // verify if the operator does exist
         OperatorEntity operatorEntity = operatorService.getOperatorById(operatorId);
-        if (!(operatorEntity instanceof OperatorEntity)) {
+        if (operatorEntity == null) {
             throw new BusinessException("El operador no existe.");
         }
 
         OperatorUserEntity existsUser = operatorUserService.getOperatorUserByOperatorAndUserCode(operatorEntity,
                 userCode);
-        if (existsUser instanceof OperatorUserEntity) {
+        if (existsUser != null) {
             throw new BusinessException("El usuario ya ha sido asignado al operador.");
         }
 
@@ -85,18 +90,16 @@ public class OperatorBusiness {
 
         operatorEntity = operatorUserEntity.getOperator();
 
-        OperatorDto operatorDto = transformEntityToDto(operatorEntity);
-
-        return operatorDto;
+        return transformEntityToDto(operatorEntity);
     }
 
     public List<OperatorUserDto> getUsersByOperator(Long operatorId) throws BusinessException {
 
         List<OperatorUserDto> users = new ArrayList<>();
 
-        // verify if the operator does exists
+        // verify if the operator does exist
         OperatorEntity operatorEntity = operatorService.getOperatorById(operatorId);
-        if (!(operatorEntity instanceof OperatorEntity)) {
+        if (operatorEntity == null) {
             throw new BusinessException("El operador no existe.");
         }
 
@@ -141,9 +144,7 @@ public class OperatorBusiness {
 
         operatorEntity = operatorService.createOperator(operatorEntity);
 
-        OperatorDto operatorDto = this.transformEntityToDto(operatorEntity);
-
-        return operatorDto;
+        return this.transformEntityToDto(operatorEntity);
     }
 
     protected OperatorDto transformEntityToDto(OperatorEntity operatorEntity) {
@@ -167,11 +168,11 @@ public class OperatorBusiness {
 
     public OperatorDto activateOperator(Long id) throws BusinessException {
 
-        OperatorDto operatorDto = null;
+        OperatorDto operatorDto;
 
         // verify manager exists
         OperatorEntity operatorEntity = operatorService.getOperatorById(id);
-        if (!(operatorEntity instanceof OperatorEntity)) {
+        if (operatorEntity == null) {
             throw new BusinessException("El operador no existe.");
         }
 
@@ -185,9 +186,12 @@ public class OperatorBusiness {
         operatorEntity.setOperatorState(operatorStateEntity);
 
         try {
-            OperatorEntity operatorUpdatedEntity = operatorService.updateManager(operatorEntity);
+            OperatorEntity operatorUpdatedEntity = operatorService.updateOperator(operatorEntity);
             operatorDto = this.transformEntityToDto(operatorUpdatedEntity);
         } catch (Exception e) {
+            String messageError = String.format("Error activando el operador %d : %s", id, e.getMessage());
+            SCMTracing.sendError(messageError);
+            log.error(messageError);
             throw new BusinessException("No se ha podido activar el operador.");
         }
 
@@ -196,11 +200,11 @@ public class OperatorBusiness {
     }
 
     public OperatorDto deactivateOperator(Long id) throws BusinessException {
-        OperatorDto operatorDto = null;
+        OperatorDto operatorDto;
 
         // verify manager exists
         OperatorEntity operatorEntity = operatorService.getOperatorById(id);
-        if (!(operatorEntity instanceof OperatorEntity)) {
+        if (operatorEntity == null) {
             throw new BusinessException("No se ha encontrado el operador.");
         }
 
@@ -214,9 +218,12 @@ public class OperatorBusiness {
         operatorEntity.setOperatorState(operatorStateEntity);
 
         try {
-            OperatorEntity operatorUpdatedEntity = operatorService.updateManager(operatorEntity);
+            OperatorEntity operatorUpdatedEntity = operatorService.updateOperator(operatorEntity);
             operatorDto = this.transformEntityToDto(operatorUpdatedEntity);
         } catch (Exception e) {
+            String messageError = String.format("Error desactivando el operador %d : %s", id, e.getMessage());
+            SCMTracing.sendError(messageError);
+            log.error(messageError);
             throw new BusinessException("No se ha podido desactivar el operador.");
         }
 
@@ -225,11 +232,11 @@ public class OperatorBusiness {
 
     public Object updateManager(Long operatorId, String operatorName, String taxIdentification, Boolean isPublic,
             String alias) throws BusinessException {
-        OperatorDto operatorDto = null;
+        OperatorDto operatorDto;
 
         // verify operator exists
         OperatorEntity operatorEntity = operatorService.getOperatorById(operatorId);
-        if (!(operatorEntity instanceof OperatorEntity)) {
+        if (operatorEntity == null) {
             throw new BusinessException("No se ha encontrado al operador.");
         }
 
@@ -244,9 +251,12 @@ public class OperatorBusiness {
         }
 
         try {
-            OperatorEntity operatorUpdatedEntity = operatorService.updateManager(operatorEntity);
+            OperatorEntity operatorUpdatedEntity = operatorService.updateOperator(operatorEntity);
             operatorDto = this.transformEntityToDto(operatorUpdatedEntity);
         } catch (Exception e) {
+            String messageError = String.format("Error actualizando el operador %d : %s", operatorId, e.getMessage());
+            SCMTracing.sendError(messageError);
+            log.error(messageError);
             throw new BusinessException("No se ha podido actualizar el operador.");
         }
 
