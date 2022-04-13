@@ -14,7 +14,7 @@
 
 	<groupId>com.ai.st.microservice.operators</groupId>
 	<artifactId>st-microservice-operators</artifactId>
-	<version>1.5.4</version>
+	<version>1.7.0</version>
 	<name>st-microservice-operators</name>
 	<description>Microservice Operators</description>
 
@@ -103,6 +103,14 @@
 			<groupId>com.newrelic.agent.java</groupId>
 			<artifactId>newrelic-api</artifactId>
 			<version>7.5.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.newrelic.agent.java</groupId>
+			<artifactId>newrelic-agent</artifactId>
+			<version>7.5.0</version>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
