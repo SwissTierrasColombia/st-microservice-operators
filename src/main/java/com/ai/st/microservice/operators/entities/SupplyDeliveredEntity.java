@@ -18,108 +18,108 @@ import javax.persistence.TemporalType;
 @Table(name = "supplies_delivered", schema = "operators")
 public class SupplyDeliveredEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-	@Column(name = "observations", nullable = true, length = 500)
-	private String observations;
+    @Column(name = "observations", nullable = true, length = 500)
+    private String observations;
 
-	@Column(name = "supply_code", nullable = false)
-	private Long supplyCode;
+    @Column(name = "supply_code", nullable = false)
+    private Long supplyCode;
 
-	@Column(name = "downloaded", nullable = false)
-	private Boolean downloaded;
+    @Column(name = "downloaded", nullable = false)
+    private Boolean downloaded;
 
-	@Column(name = "downloaded_at", nullable = true)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date downloadedAt;
+    @Column(name = "downloaded_at", nullable = true)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date downloadedAt;
 
-	@Column(name = "downloaded_by", nullable = true)
-	private Long downloadedBy;
+    @Column(name = "downloaded_by", nullable = true)
+    private Long downloadedBy;
 
-	@Column(name = "download_report_url", nullable = true, length = 1000)
-	private String downloadReportUrl;
+    @Column(name = "download_report_url", nullable = true, length = 1000)
+    private String downloadReportUrl;
 
-	@Column(name = "created_at", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createdAt;
+    @Column(name = "created_at", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "delivery_id", referencedColumnName = "id", nullable = false)
-	private DeliveryEntity delivery;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "delivery_id", referencedColumnName = "id", nullable = false)
+    private DeliveryEntity delivery;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getObservations() {
-		return observations;
-	}
+    public String getObservations() {
+        return observations;
+    }
 
-	public void setObservations(String observations) {
-		this.observations = observations;
-	}
+    public void setObservations(String observations) {
+        this.observations = observations;
+    }
 
-	public Long getSupplyCode() {
-		return supplyCode;
-	}
+    public Long getSupplyCode() {
+        return supplyCode;
+    }
 
-	public void setSupplyCode(Long supplyCode) {
-		this.supplyCode = supplyCode;
-	}
+    public void setSupplyCode(Long supplyCode) {
+        this.supplyCode = supplyCode;
+    }
 
-	public Boolean getDownloaded() {
-		return downloaded;
-	}
+    public Boolean getDownloaded() {
+        return downloaded;
+    }
 
-	public void setDownloaded(Boolean downloaded) {
-		this.downloaded = downloaded;
-	}
+    public void setDownloaded(Boolean downloaded) {
+        this.downloaded = downloaded;
+    }
 
-	public Date getDownloadedAt() {
-		return downloadedAt;
-	}
+    public Date getDownloadedAt() {
+        return downloadedAt;
+    }
 
-	public void setDownloadedAt(Date downloadedAt) {
-		this.downloadedAt = downloadedAt;
-	}
+    public void setDownloadedAt(Date downloadedAt) {
+        this.downloadedAt = downloadedAt;
+    }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	public DeliveryEntity getDelivery() {
-		return delivery;
-	}
+    public DeliveryEntity getDelivery() {
+        return delivery;
+    }
 
-	public void setDelivery(DeliveryEntity delivery) {
-		this.delivery = delivery;
-	}
+    public void setDelivery(DeliveryEntity delivery) {
+        this.delivery = delivery;
+    }
 
-	public Long getDownloadedBy() {
-		return downloadedBy;
-	}
+    public Long getDownloadedBy() {
+        return downloadedBy;
+    }
 
-	public void setDownloadedBy(Long downloadedBy) {
-		this.downloadedBy = downloadedBy;
-	}
+    public void setDownloadedBy(Long downloadedBy) {
+        this.downloadedBy = downloadedBy;
+    }
 
-	public String getDownloadReportUrl() {
-		return downloadReportUrl;
-	}
+    public String getDownloadReportUrl() {
+        return downloadReportUrl;
+    }
 
-	public void setDownloadReportUrl(String downloadReportUrl) {
-		this.downloadReportUrl = downloadReportUrl;
-	}
+    public void setDownloadReportUrl(String downloadReportUrl) {
+        this.downloadReportUrl = downloadReportUrl;
+    }
 
 }

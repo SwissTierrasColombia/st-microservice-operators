@@ -9,98 +9,98 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "SupplyDeliveryDto", description = "Supply Delivery Dto")
 public class SupplyDeliveryDto implements Serializable {
 
-	private static final long serialVersionUID = 6986943352552791077L;
+    private static final long serialVersionUID = 6986943352552791077L;
 
-	@ApiModelProperty(required = true, notes = "Supply Delivery ID")
-	private Long id;
+    @ApiModelProperty(required = true, notes = "Supply Delivery ID")
+    private Long id;
 
-	@ApiModelProperty(required = true, notes = "Date creation")
-	private Date createdAt;
+    @ApiModelProperty(required = true, notes = "Date creation")
+    private Date createdAt;
 
-	@ApiModelProperty(required = true, notes = "Is downloaded?")
-	private Boolean downloaded;
+    @ApiModelProperty(required = true, notes = "Is downloaded?")
+    private Boolean downloaded;
 
-	@ApiModelProperty(required = true, notes = "Date downloaded")
-	private Date downloadedAt;
+    @ApiModelProperty(required = true, notes = "Date downloaded")
+    private Date downloadedAt;
 
-	@ApiModelProperty(required = true, notes = "Observations")
-	private String observations;
+    @ApiModelProperty(required = true, notes = "Observations")
+    private String observations;
 
-	@ApiModelProperty(required = true, notes = "Supply Code")
-	private Long supplyCode;
+    @ApiModelProperty(required = true, notes = "Supply Code")
+    private Long supplyCode;
 
-	@ApiModelProperty(required = true, notes = "Downloaded by")
-	private Long downloadedBy;
+    @ApiModelProperty(required = true, notes = "Downloaded by")
+    private Long downloadedBy;
 
-	@ApiModelProperty(required = true, notes = "URL Report")
-	private String downloadReportUrl;
+    @ApiModelProperty(required = true, notes = "URL Report")
+    private String downloadReportUrl;
 
-	public SupplyDeliveryDto() {
+    public SupplyDeliveryDto() {
 
-	}
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	public Boolean getDownloaded() {
-		return downloaded;
-	}
+    public Boolean getDownloaded() {
+        return downloaded;
+    }
 
-	public void setDownloaded(Boolean downloaded) {
-		this.downloaded = downloaded;
-	}
+    public void setDownloaded(Boolean downloaded) {
+        this.downloaded = downloaded;
+    }
 
-	public Date getDownloadedAt() {
-		return downloadedAt;
-	}
+    public Date getDownloadedAt() {
+        return downloadedAt;
+    }
 
-	public void setDownloadedAt(Date downloadedAt) {
-		this.downloadedAt = downloadedAt;
-	}
+    public void setDownloadedAt(Date downloadedAt) {
+        this.downloadedAt = downloadedAt;
+    }
 
-	public String getObservations() {
-		return observations;
-	}
+    public String getObservations() {
+        return observations;
+    }
 
-	public void setObservations(String observations) {
-		this.observations = observations;
-	}
+    public void setObservations(String observations) {
+        this.observations = observations;
+    }
 
-	public Long getSupplyCode() {
-		return supplyCode;
-	}
+    public Long getSupplyCode() {
+        return supplyCode;
+    }
 
-	public void setSupplyCode(Long supplyCode) {
-		this.supplyCode = supplyCode;
-	}
+    public void setSupplyCode(Long supplyCode) {
+        this.supplyCode = supplyCode;
+    }
 
-	public Long getDownloadedBy() {
-		return downloadedBy;
-	}
+    public Long getDownloadedBy() {
+        return downloadedBy;
+    }
 
-	public void setDownloadedBy(Long downloadedBy) {
-		this.downloadedBy = downloadedBy;
-	}
+    public void setDownloadedBy(Long downloadedBy) {
+        this.downloadedBy = downloadedBy;
+    }
 
-	public String getDownloadReportUrl() {
-		return downloadReportUrl;
-	}
+    public String getDownloadReportUrl() {
+        return downloadReportUrl;
+    }
 
-	public void setDownloadReportUrl(String downloadReportUrl) {
-		this.downloadReportUrl = downloadReportUrl;
-	}
+    public void setDownloadReportUrl(String downloadReportUrl) {
+        this.downloadReportUrl = downloadReportUrl;
+    }
 
 }

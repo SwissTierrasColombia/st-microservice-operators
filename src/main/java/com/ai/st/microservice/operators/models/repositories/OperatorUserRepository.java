@@ -1,4 +1,4 @@
-package com.ai.st.microservice.operators.repositories;
+package com.ai.st.microservice.operators.models.repositories;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import com.ai.st.microservice.operators.entities.OperatorUserEntity;
 
 public interface OperatorUserRepository extends CrudRepository<OperatorUserEntity, Long> {
 
-	List<OperatorUserEntity> findByUserCode(Long userCode);
+    List<OperatorUserEntity> findByUserCode(Long userCode);
 
-	OperatorUserEntity findByOperatorAndUserCode(OperatorEntity operator, Long userCode);
+    OperatorUserEntity findByOperatorAndUserCode(OperatorEntity operator, Long userCode);
 
 }
