@@ -1,22 +1,18 @@
 package com.ai.st.microservice.operators.controllers.v1;
 
+import com.ai.st.microservice.common.dto.general.BasicResponseDto;
+import com.ai.st.microservice.operators.services.tracing.SCMTracing;
+import com.ai.st.microservice.operators.services.tracing.TracingKeyword;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ai.st.microservice.operators.business.OperatorBusiness;
 import com.ai.st.microservice.operators.business.OperatorUserBusiness;
 import com.ai.st.microservice.operators.dto.AddUserToOperatorDto;
-import com.ai.st.microservice.operators.dto.ErrorDto;
 import com.ai.st.microservice.operators.dto.OperatorDto;
 import com.ai.st.microservice.operators.exceptions.BusinessException;
 import com.ai.st.microservice.operators.exceptions.InputValidationException;
@@ -26,88 +22,100 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api(value = "Manage Operators Users", description = "Manage Operators Users", tags = { "Operators Users" })
+@Api(value = "Manage Operators Users", tags = { "Operators Users" })
 @RestController
 @RequestMapping("api/operators/v1/users")
 public class OperatorUserV1Controller {
 
-	private final Logger log = LoggerFactory.getLogger(OperatorUserV1Controller.class);
+    private final Logger log = LoggerFactory.getLogger(OperatorUserV1Controller.class);
 
-	@Autowired
-	private OperatorUserBusiness operatorUserBusiness;
+    private final OperatorUserBusiness operatorUserBusiness;
+    private final OperatorBusiness operatorBusiness;
 
-	@Autowired
-	private OperatorBusiness operatorBusiness;
+    public OperatorUserV1Controller(OperatorUserBusiness operatorUserBusiness, OperatorBusiness operatorBusiness) {
+        this.operatorUserBusiness = operatorUserBusiness;
+        this.operatorBusiness = operatorBusiness;
+    }
 
-	@RequestMapping(value = "/{userCode}/operators", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Get operator by user")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Get operator by user", response = OperatorDto.class),
-			@ApiResponse(code = 500, message = "Error Server", response = String.class) })
-	@ResponseBody
-	public ResponseEntity<?> getOperatorsByUser(@PathVariable Long userCode) {
+    @GetMapping(value = "/{userCode}/operators", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get operator by user")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Get operator by user", response = OperatorDto.class),
+            @ApiResponse(code = 500, message = "Error Server", response = String.class) })
+    @ResponseBody
+    public ResponseEntity<?> getOperatorByUser(@PathVariable Long userCode) {
 
-		HttpStatus httpStatus = null;
-		Object responseDto = null;
+        HttpStatus httpStatus;
+        Object responseDto = null;
 
-		try {
+        try {
 
-			responseDto = operatorUserBusiness.getOperatorByUserCode(userCode);
-			httpStatus = (responseDto instanceof OperatorDto) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+            SCMTracing.setTransactionName("getOperatorByUser");
 
-		} catch (BusinessException e) {
-			log.error("Error ManagerUserV1Controller@getManagersByUser#Business ---> " + e.getMessage());
-			httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
-		} catch (Exception e) {
-			log.error("Error ManagerUserV1Controller@getManagersByUser#General ---> " + e.getMessage());
-			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-		}
+            responseDto = operatorUserBusiness.getOperatorByUserCode(userCode);
+            httpStatus = (responseDto != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 
-		return new ResponseEntity<>(responseDto, httpStatus);
-	}
+        } catch (BusinessException e) {
+            log.error("Error OperatorUserV1Controller@getOperatorByUser#Business ---> " + e.getMessage());
+            httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
+            SCMTracing.sendError(e.getMessage());
+        } catch (Exception e) {
+            log.error("Error OperatorUserV1Controller@getOperatorByUser#General ---> " + e.getMessage());
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            SCMTracing.sendError(e.getMessage());
+        }
 
-	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Add user to operator")
-	@ApiResponses(value = {
-			@ApiResponse(code = 201, message = "Add user to operator", response = OperatorDto.class, responseContainer = "List"),
-			@ApiResponse(code = 500, message = "Error Server", response = String.class) })
-	@ResponseBody
-	public ResponseEntity<?> addUserToOperator(@RequestBody AddUserToOperatorDto requestAddUser) {
+        return new ResponseEntity<>(responseDto, httpStatus);
+    }
 
-		HttpStatus httpStatus = null;
-		Object responseDto = null;
+    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Add user to operator")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Add user to operator", response = OperatorDto.class, responseContainer = "List"),
+            @ApiResponse(code = 500, message = "Error Server", response = String.class) })
+    @ResponseBody
+    public ResponseEntity<?> addUserToOperator(@RequestBody AddUserToOperatorDto requestAddUser) {
 
-		try {
+        HttpStatus httpStatus;
+        Object responseDto;
 
-			// validation user code
-			Long userCode = requestAddUser.getUserCode();
-			if (userCode == null || userCode <= 0) {
-				throw new InputValidationException("El código de usuario es inválido.");
-			}
+        try {
 
-			// validation operator id
-			Long operatorId = requestAddUser.getOperatorId();
-			if (operatorId == null || operatorId <= 0) {
-				throw new InputValidationException("El operador es inválido.");
-			}
+            SCMTracing.setTransactionName("addUserToOperator");
+            SCMTracing.addCustomParameter(TracingKeyword.BODY_REQUEST, requestAddUser.toString());
 
-			responseDto = operatorBusiness.addUserToOperator(userCode, operatorId);
-			httpStatus = HttpStatus.CREATED;
+            // validation user code
+            Long userCode = requestAddUser.getUserCode();
+            if (userCode == null || userCode <= 0) {
+                throw new InputValidationException("El código de usuario es inválido.");
+            }
 
-		} catch (InputValidationException e) {
-			log.error("Error ProviderUserV1Controller@addUserToProvider#Validation ---> " + e.getMessage());
-			httpStatus = HttpStatus.BAD_REQUEST;
-			responseDto = new ErrorDto(e.getMessage(), 1);
-		} catch (BusinessException e) {
-			log.error("Error ProviderUserV1Controller@addUserToProvider#Business ---> " + e.getMessage());
-			httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
-			responseDto = new ErrorDto(e.getMessage(), 2);
-		} catch (Exception e) {
-			log.error("Error ProviderUserV1Controller@addUserToProvider#General ---> " + e.getMessage());
-			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-			responseDto = new ErrorDto(e.getMessage(), 3);
-		}
+            // validation operator id
+            Long operatorId = requestAddUser.getOperatorId();
+            if (operatorId == null || operatorId <= 0) {
+                throw new InputValidationException("El operador es inválido.");
+            }
 
-		return new ResponseEntity<>(responseDto, httpStatus);
-	}
+            responseDto = operatorBusiness.addUserToOperator(userCode, operatorId);
+            httpStatus = HttpStatus.CREATED;
+
+        } catch (InputValidationException e) {
+            log.error("Error ProviderUserV1Controller@addUserToOperator#Validation ---> " + e.getMessage());
+            httpStatus = HttpStatus.BAD_REQUEST;
+            responseDto = new BasicResponseDto(e.getMessage());
+            SCMTracing.sendError(e.getMessage());
+        } catch (BusinessException e) {
+            log.error("Error ProviderUserV1Controller@addUserToOperator#Business ---> " + e.getMessage());
+            httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
+            responseDto = new BasicResponseDto(e.getMessage());
+            SCMTracing.sendError(e.getMessage());
+        } catch (Exception e) {
+            log.error("Error ProviderUserV1Controller@addUserToOperator#General ---> " + e.getMessage());
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            responseDto = new BasicResponseDto(e.getMessage());
+            SCMTracing.sendError(e.getMessage());
+        }
+
+        return new ResponseEntity<>(responseDto, httpStatus);
+    }
 
 }
